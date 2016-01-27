@@ -14,11 +14,11 @@ module.exports = function download (opts, cb) {
   var version = opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
-  var filename = 'electron-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
+  var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
   var url = process.env.NPM_CONFIG_ELECTRON_MIRROR ||
     process.env.ELECTRON_MIRROR ||
     opts.mirror ||
-    'https://github.com/electron/electron/releases/download/v'
+    'http://brave.github.io/browser-laptop-releases/'
   url += process.env.ELECTRON_CUSTOM_DIR || opts.customDir || version
   url += '/'
   url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
@@ -50,7 +50,7 @@ module.exports = function download (opts, cb) {
       if (err) return cb(err)
       cachedZip = path.join(actualCache, filename) // in case cache dir changed
       // download to tmpdir
-      var tmpdir = path.join(os.tmpdir(), 'electron-tmp-download-' + process.pid + '-' + Date.now())
+      var tmpdir = path.join(os.tmpdir(), 'brave-tmp-download-' + process.pid + '-' + Date.now())
       mkdir(tmpdir, function (err) {
         if (err) return cb(err)
         debug('downloading zip', url, 'to', tmpdir)
