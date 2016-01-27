@@ -15,9 +15,9 @@ module.exports = function download (opts, cb) {
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   var filename = 'electron-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
-  var url = process.env.NPM_CONFIG_ELECTRON_MIRROR ||
+  var url = opts.mirror ||
     process.env.ELECTRON_MIRROR ||
-    opts.mirror ||
+    process.env.NPM_CONFIG_ELECTRON_MIRROR ||
     'https://github.com/electron/electron/releases/download/v'
   url += process.env.ELECTRON_CUSTOM_DIR || opts.customDir || version
   url += '/'
