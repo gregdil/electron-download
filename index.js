@@ -14,14 +14,30 @@ module.exports = function download (opts, cb) {
   var version = opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
-  var filename = 'electron-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
-  var url = opts.mirror ||
+
+  var mirror = opts.mirror ||
     process.env.ELECTRON_MIRROR ||
-    process.env.NPM_CONFIG_ELECTRON_MIRROR ||
+    process.env.npm_config_electron_mirror ||
     'https://github.com/electron/electron/releases/download/v'
-  url += process.env.ELECTRON_CUSTOM_DIR || opts.customDir || version
+
+  var productName = process.env.ELECTRON_PRODUCT_NAME ||
+    process.env.npm_config_electron_product_name ||
+    'Electron'
+
+  var filename = opts.customFilename ||
+    process.env.ELECTRON_CUSTOM_FILENAME ||
+    process.env.npm_config_electron_custom_filename ||
+    productName.toLowerCase() + '-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
+
+  var dir = opts.customDir ||
+    process.env.ELECTRON_CUSTOM_DIR ||
+    process.env.npm_config_electron_custom_dir ||
+    version
+
+  var url = mirror
+  url += dir
   url += '/'
-  url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
+  url += filename
   var homeDir = homePath()
   var cache = opts.cache || path.join(homeDir, './.electron')
 
