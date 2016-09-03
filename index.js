@@ -11,15 +11,12 @@ var npmrc = require('rc')('npm')
 module.exports = function download (opts, cb) {
   var platform = opts.platform || os.platform()
   var arch = opts.arch || os.arch()
-  var version = opts.version
+  var version = '1.3.12' //opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
-  var url = process.env.NPM_CONFIG_ELECTRON_MIRROR ||
-    process.env.ELECTRON_MIRROR ||
-    opts.mirror ||
-    'http://brave.github.io/browser-laptop-releases/'
-  url += process.env.ELECTRON_CUSTOM_DIR || opts.customDir || version
+  var url = 'http://brave.github.io/browser-laptop-releases/'
+  url += version
   url += '/'
   url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
   var homeDir = homePath()
