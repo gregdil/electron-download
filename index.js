@@ -11,7 +11,7 @@ var npmrc = require('rc')('npm')
 module.exports = function download (opts, cb) {
   var platform = opts.platform || os.platform()
   var arch = opts.arch || os.arch()
-  var version = '1.4.0' //opts.version
+  var version = opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
