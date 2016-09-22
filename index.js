@@ -15,7 +15,8 @@ module.exports = function download (opts, cb) {
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
-  var url = opts.mirror
+  // electron has a dependency on upstream electron-prebuilt and doesn't pass the mirror
+  var url = opts.mirror || 'https://github.com/brave/electron/releases/download/v'
   url += version
   url += '/'
   url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
