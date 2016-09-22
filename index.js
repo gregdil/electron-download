@@ -15,7 +15,7 @@ module.exports = function download (opts, cb) {
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
-  var url = 'https://brave.github.io/browser-laptop-releases/'
+  var url = opts.mirror
   url += version
   url += '/'
   url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
