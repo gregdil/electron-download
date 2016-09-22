@@ -11,7 +11,7 @@ var npmrc = require('rc')('npm')
 module.exports = function download (opts, cb) {
   var platform = opts.platform || os.platform()
   var arch = opts.arch || os.arch()
-  var version = opts.version
+  var version = '1.4.1' //opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
   if (version.startsWith('0.')) {
