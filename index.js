@@ -14,6 +14,10 @@ module.exports = function download (opts, cb) {
   var version = opts.version
   var symbols = opts.symbols || false
   if (!version) return cb(new Error('must specify version'))
+  if (version.startsWith('0.')) {
+    // electron-rebuild uses upstream electron-prebuilt and sends the wrong version
+    version = process.env.npm_config_brave_electron_version
+  }
   var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
   // electron has a dependency on upstream electron-prebuilt and doesn't pass the mirror
   var url = opts.mirror || 'https://github.com/brave/electron/releases/download/v'
