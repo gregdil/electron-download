@@ -18,9 +18,9 @@ module.exports = function download (opts, cb) {
     // electron-rebuild uses upstream electron-prebuilt and sends the wrong version
     version = process.env.npm_config_brave_electron_version
   }
-  var filename = 'brave-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
+  var filename = 'gikix-v' + version + '-' + platform + '-' + arch + (symbols ? '-symbols' : '') + '.zip'
   // electron has a dependency on upstream electron-prebuilt and doesn't pass the mirror
-  var url = opts.mirror || 'https://github.com/brave/electron/releases/download/v'
+  var url = opts.mirror || 'https://github.com/gregdil/electron/releases/download/v'
   url += version
   url += '/'
   url += process.env.ELECTRON_CUSTOM_FILENAME || opts.customFilename || filename
@@ -52,7 +52,7 @@ module.exports = function download (opts, cb) {
       if (err) return cb(err)
       cachedZip = path.join(actualCache, filename) // in case cache dir changed
       // download to tmpdir
-      var tmpdir = path.join(os.tmpdir(), 'brave-tmp-download-' + process.pid + '-' + Date.now())
+      var tmpdir = path.join(os.tmpdir(), 'gikix-tmp-download-' + process.pid + '-' + Date.now())
       mkdir(tmpdir, function (err) {
         if (err) return cb(err)
         debug('downloading zip', url, 'to', tmpdir)
